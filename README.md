@@ -16,5 +16,8 @@ The SNR algorithm and CNN architecture should be tailored with respect to the du
 
 This two-step training protocol is applicable to general timeseries data obtained in fields across biology. It can efficiently learn to detect the specific waveform characteristics of the oscillation and works well on recordings with very different electrode types and spatial sampling (ranging from scalp EEG to invasive intracranial depth electrodes). It demonstrates the promise of this computational tool for analysis of other rhythmic waveforms that may be of interest in high-noise biological recordings.  An example spindle detection set up is provided in demo.m.
 
+# Requirement
+Following GitHub repository should be included for the analysis: https://github.com/mullerlab/wave-matlab
+
 # Acknowledgements
 This implementation builds on the CNN model described in Mofrad et al., 2022.
