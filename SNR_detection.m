@@ -33,7 +33,7 @@ number_windows = floor( ( size(x,2) - window_size ) ./ window_offset ); % number
 s = zeros( size(x,1),number_windows );
 w = zeros( size(x,1), window_size, number_windows);
 
-%%%%% bandpas data
+%%%%% bandpass data
 if length(freq_wide)== 1
     xw = hipass_filter_matrix( x, freq_wide, filter_order, Fs );
     if freq(1) == freq_wide
@@ -93,12 +93,12 @@ if flag_boundry == 1
 end
 
 
-%%%%% remove spindles longer tha 3 minutes
+%%%%% remove spindles longer than 3 seconds
 for rr = 1:size(x,1)
     tmp = squeeze(sw_label(rr,:));
     if sum(tmp) == 0; continue; end
     
-    % remove sp with duration longer than 3000
+    % remove sp with duration longer than 3000 msec
     [sp_time, sp_dur, ~] = sp_epoch(tmp', Fs, window_size, window_offset, merge_threshold);
     ind = find(sp_dur > 3);
     for ii = 1:length(ind)
