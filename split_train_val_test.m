@@ -35,7 +35,13 @@ for rr = 1:size(X,1)
     y_rs = squeeze(y(rr, :));
     
     %%%%% training set
-    if sp_ratio > 0 % balanced training set
+    if isempty(sp_ratio)
+        
+        ind = 1:floor(prct(1)*length(y_rs));
+        Xtrain_ds_ele = X_rs(1,:,1,ind); 
+        ytrain_ds_ele = y_rs(ind);
+        
+    elseif sp_ratio > 0 % balanced training set
         
         ind = 1:floor(prct(1)*length(y_rs));
         tmp = X_rs(1,:,1,ind); tmp_y = y_rs(ind);
@@ -47,13 +53,8 @@ for rr = 1:size(X,1)
         ind = randperm(size(tmp,4), size_tmp)';
         Xtrain_ds_ele = cat(4, Xtrain_ds_ele, tmp(1,:,1,ind));
         tmp = tmp_y(tmp_y == '0'); ytrain_ds_ele = [ytrain_ds_ele, tmp(ind)];
-        
-    elseif sp_ratio == 0
-        
-        ind = 1:floor(prct(1)*length(y_rs));
-        Xtrain_ds_ele = X_rs(1,:,1,ind); 
-        ytrain_ds_ele = y_rs(ind);  
-        
+    else
+        error('Error: Spindle ratio must be positive or empty')
     end
     Xtrain = cat(4, Xtrain, Xtrain_ds_ele); ytrain = [ytrain, ytrain_ds_ele];
     
