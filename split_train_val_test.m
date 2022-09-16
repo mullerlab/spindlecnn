@@ -9,7 +9,7 @@ function [Xtrain, ytrain, Xval, yval, Xtest, ytest] = split_train_val_test(X, y,
 % y - detected activities
 % prct - percentage of train, validation and test set, e.g., [0.36, 0.16,
 % 0.5]
-% sp_ratio - balanced training: sp_ratio > 0 ratio of non-spindles vs spindles window; (sp_ratio = 0; unbalanced training set) 
+% sp_ratio - balanced training: sp_ratio > 0 ratio of non-spindles vs spindles window; (sp_ratio = []; unbalanced training set) 
 %
 % OUTPUTS
 % w - signal windows
