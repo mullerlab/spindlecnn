@@ -38,7 +38,7 @@ x = notch_filter_matrix( x, params.n1, params.n2, params.notch_order, params.Fs 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Step 1: detect spindle - SNR approach
 [X, y, ~] = SNR_detection(x, params.Fs, params.window_size, params.window_offset, ...
-    params.merge_threshold, params.freq, params.freq_wide, params.filter_order, 0);
+    params.merge_threshold, params.freq, params.freq_wide, params.filter_order, []);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Step 2: train the CNN model
