@@ -26,8 +26,8 @@ Xval = []; yval = []; % evaluation set
 %%%%%%%%%% train, test and validation split
 rng(123)
 for rr = 1:size(X,1)
-    clearvars -except rr file params Xtest ytest ...
-        Xtrain ytrain Xval yval X y
+    clearvars -except rr file Xtest ytest ...
+        Xtrain ytrain Xval yval X y prct sp_ratio
     
     if size(Xtrain,3) > 16000; break; end
     
@@ -59,7 +59,7 @@ for rr = 1:size(X,1)
     Xtrain = cat(4, Xtrain, Xtrain_ds_ele); ytrain = [ytrain, ytrain_ds_ele];
     
     %%%%% validation sets
-    ind = floor(prct(1)*length(y_rs))+1:floor((params.prct(1)+params.prct(2))*length(y_rs));
+    ind = floor(prct(1)*length(y_rs))+1:floor((prct(1)+prct(2))*length(y_rs));
     Xval = cat(4, Xval, X_rs(1,:,1,ind)); yval = [yval, y_rs(ind)];
     
     %%%%% test set
