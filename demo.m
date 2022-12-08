@@ -9,7 +9,7 @@ clearvars; clc
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Step 0: preprocessing
 %%%%%%%%%% load sleep recordings file
-file = dir('data/*.mat');
+file = dir('data/*.mat'); % Please note that this is an example recording and training a CNN model requires a longer recording which provides at least 1600 windows (see split_train_val_test.m)
 load(sprintf('%s/%s', file.folder, file.name));
 
 %%%%%%%%%% initialization
@@ -72,3 +72,19 @@ tb_CNN_res.fscore = 2*tb_CNN_res.precision*tb_CNN_res.recall/(tb_CNN_res.precisi
 tb_CNN_res.Sensitivity = sum(ytest == 1 & yhat_test == 1)/sum(ytest == 1);
 tb_CNN_res.Specificity = sum(ytest == 0 & yhat_test == 0)/sum(ytest == 0);
 
+%%%%% plots
+X_rs = reshape(permute(X, [2,1,3]), 1, params.window_size, 1, []);
+yprob = predict(net, X_rs); yhat = double(yprob(:,2) > 0.5);
+
+output_dir = "./plots"; 
+for rr = 1:length(params.ch_nbr)
+    sprintf('ch %d', rr)
+    X_rs = reshape(squeeze(X(rr,:,:)), 1, params.window_size, 1, []);
+    yprob = predict(net, X_rs); yhat = double(yprob(:,2) > 0.5);
+
+    if sum(yhat) == 0; continue; end
+    plot_example_spindles(x(rr,:), yhat, s(rr,:), params, 3, output_dir, sprintf('ch%d', rr));
+    plot_ave_spindles(X(rr,:,:), yhat, params, output_dir, sprintf('ch%d', rr));
+    plot_psd_spindles(x(rr,:), yhat, params, output_dir, sprintf('ch%d', rr));
+
+end
