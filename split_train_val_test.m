@@ -29,7 +29,7 @@ for rr = 1:size(X,1)
     clearvars -except rr file Xtest ytest ...
         Xtrain ytrain Xval yval X y prct sp_ratio
     
-    if size(Xtrain,3) > 16000; break; end
+    if size(Xtrain,4) > 16000; break; end
     
     X_rs(1,:,1,:) = squeeze(X(rr,:,:));
     y_rs = squeeze(y(rr, :));
